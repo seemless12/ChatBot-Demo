@@ -1,0 +1,17 @@
+{
+  "build": {
+    "builder": "HEROKU_BUILDPACK_URL",
+    "buildpacks": [
+      {"url": "heroku/python"}
+    ]
+  },
+  "deploy": {
+    "startCommand": "uvicorn app.main:app --host 0.0.0.0 --port $PORT",
+    "restartPolicy": "on-failure",
+    "environment": {
+      "DATABASE_URL": "sqlite:///./restaurant_chatbot.db",
+      "PORT": "8000"
+    },
+    "volumes": ["./restaurant_chatbot.db"]
+  }
+}
