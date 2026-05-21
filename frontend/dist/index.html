@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/logo-DTzm1eCd.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CulinaryChat AI - Academy & Platform</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/index-tHe6cQjy.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CFM7o7sX.css">
+  </head>
+  <body>
+    <div class="portal-container">
+      
+      <!-- Top Navigation Navbar -->
+      <header class="main-navbar">
+        <div class="nav-logo">
+          <span class="logo-icon">🍳</span>
+          <div class="logo-text">
+            <h1>CulinaryChat</h1>
+            <p>AI Training Academy</p>
+          </div>
+        </div>
+        
+        <div class="nav-tenant-selector">
+          <div class="select-wrapper">
+            <select id="tenant-select">
+              <option value="" disabled selected>Select a Restaurant...</option>
+            </select>
+            <button id="btn-add-tenant" class="btn-icon" title="Register New Restaurant">+</button>
+          </div>
+          <div id="tenant-key-display" class="tenant-key-display hidden">
+            <span>API Key: <code>none</code></span>
+            <button id="btn-copy-key" class="btn-copy" title="Copy API Key">📋</button>
+          </div>
+        </div>
+
+        <nav class="page-nav">
+          <button class="page-tab active" data-page="lms">🏫 Academy (LMS)</button>
+          <button class="page-tab" data-page="storefront">🖥️ Storefront Preview</button>
+          <button class="page-tab" data-page="classroom">💬 Chat Classroom</button>
+        </nav>
+      </header>
+
+      <!-- Main Pages Area -->
+      <main class="pages-viewport">
+        
+        <!-- Page 1: Academy (LMS Dashboard) -->
+        <section id="page-lms" class="page-view active">
+          <div class="lms-layout">
+            
+            <!-- LMS Sidebar for AI Stats and Sub-Tabs -->
+            <aside class="lms-sidebar">
+              <div class="lms-status-card">
+                <h3>Bot Training Progress</h3>
+                <div class="progress-section">
+                  <div class="progress-bar-wrapper">
+                    <div id="lms-progress-bar" class="progress-bar" style="width: 25%;"></div>
+                  </div>
+                  <span id="lms-progress-text" class="progress-percent">25% Complete</span>
+                </div>
+                <div class="lms-stats-grid">
+                  <div class="stat-item">
+                    <span class="stat-num" id="stat-lessons">0</span>
+                    <span class="stat-label">Lessons Taught</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-num" id="stat-grades">0</span>
+                    <span class="stat-label">Orders Handled</span>
+                  </div>
+                </div>
+              </div>
+
+              <nav class="lms-tabs">
+                <button class="nav-tab active" data-tab="prompt">🤖 Bot Personality</button>
+                <button class="nav-tab" data-tab="kb">📚 Knowledge Base</button>
+                <button class="nav-tab" data-tab="orders">
+                  📦 Orders Feed 
+                  <span id="order-badge" class="badge hidden">0</span>
+                </button>
+              </nav>
+            </aside>
+
+            <!-- LMS Main Workspace -->
+            <main class="lms-content">
+              <!-- Tab 1: Bot Personality (Syllabus) -->
+              <section id="tab-prompt" class="tab-pane active">
+                <div class="section-card">
+                  <h2>Customize AI Assistant Tone</h2>
+                  <p class="section-desc">Select a preset template or craft a custom system prompt to define the bot's behavior and dining style.</p>
+                  
+                  <div class="preset-grid">
+                    <button class="preset-card" data-preset="italian">
+                      <span class="preset-emoji">🍝</span>
+                      <h3>Italian Bistro</h3>
+                      <p>Friendly Italian chef, passionate, recommends pastas and wines.</p>
+                    </button>
+                    <button class="preset-card" data-preset="french">
+                      <span class="preset-emoji">🍷</span>
+                      <h3>Elegant Maitre D'</h3>
+                      <p>Sophisticated, polished, formal hospitality guide.</p>
+                    </button>
+                    <button class="preset-card" data-preset="burger">
+                      <span class="preset-emoji">🍔</span>
+                      <h3>Hip Diner Clerk</h3>
+                      <p>Casual, fast-paced, energetic, slangy, pushes milkshakes.</p>
+                    </button>
+                    <button class="preset-card" data-preset="cafe">
+                      <span class="preset-emoji">☕</span>
+                      <h3>Cozy Barista</h3>
+                      <p>Warm, mellow, tea and coffee expert, artistic vibe.</p>
+                    </button>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="system-prompt-text">System Prompt</label>
+                    <textarea id="system-prompt-text" placeholder="Explain how the AI assistant should speak, behave, and handle user queries..."></textarea>
+                  </div>
+
+                  <div class="form-actions">
+                    <button id="btn-save-prompt" class="btn btn-primary">Save Personality</button>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Tab 2: Knowledge Base (Curriculum) -->
+              <section id="tab-kb" class="tab-pane">
+                <div class="section-card">
+                  <div class="card-header-row">
+                    <div>
+                      <h2>Knowledge Base & Menu</h2>
+                      <p class="section-desc">Add details about your menu, timings, delivery policy, and location so the AI chatbot can answer accurately.</p>
+                    </div>
+                    <button id="btn-add-kb" class="btn btn-secondary">+ Add Entry</button>
+                  </div>
+
+                  <div class="kb-filters">
+                    <button class="filter-tab active" data-filter="all">All</button>
+                    <button class="filter-tab" data-filter="menu">🍳 Menu</button>
+                    <button class="filter-tab" data-filter="hours">⏰ Hours</button>
+                    <button class="filter-tab" data-filter="locations">📍 Location</button>
+                    <button class="filter-tab" data-filter="general">❓ FAQs</button>
+                  </div>
+
+                  <div id="kb-items-list" class="kb-items-list">
+                    <!-- KB Cards load here dynamically -->
+                    <div class="empty-state">
+                      <span>📂</span>
+                      <p>No knowledge base entries yet. Select a tenant or add an entry above!</p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Tab 3: Orders Feed (Gradebook) -->
+              <section id="tab-orders" class="tab-pane">
+                <div class="section-card">
+                  <div class="card-header-row">
+                    <div>
+                      <h2>Customer Orders Log</h2>
+                      <p class="section-desc">Manage incoming orders. Review customer details, order item boxes, and select order status actions.</p>
+                    </div>
+                    <button id="btn-refresh-orders" class="btn btn-icon-small" title="Refresh Orders">🔄</button>
+                  </div>
+
+                  <div id="orders-list" class="orders-list">
+                    <!-- Orders table/cards load here dynamically -->
+                    <div class="empty-state">
+                      <span>🛒</span>
+                      <p>No customer orders placed yet. Simulate an order on the storefront preview!</p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </main>
+            
+          </div>
+        </section>
+
+        <!-- Page 2: Storefront Preview -->
+        <section id="page-storefront" class="page-view">
+          <div class="storefront-desktop">
+            <header class="store-header">
+              <div class="store-logo">
+                <span class="sim-logo" id="sim-rest-emoji">🍽️</span>
+                <h2 id="sim-rest-name">Select Restaurant</h2>
+              </div>
+              <nav class="store-nav-links">
+                <a href="#menu-anchor">Menu</a>
+                <a href="#about-anchor">Hours & Info</a>
+              </nav>
+              <button id="btn-sim-order" class="btn-store-order">Order Online</button>
+            </header>
+
+            <div class="store-hero">
+              <div class="store-hero-overlay"></div>
+              <div class="store-hero-content">
+                <h3 id="sim-hero-tagline">Exquisite Culinary Delights</h3>
+                <p id="sim-hero-sub">Fresh Ingredients, Authentic Flavors</p>
+                <a href="#menu-anchor" class="btn-store-hero-action">View Menu</a>
+              </div>
+            </div>
+
+            <div class="store-body">
+              <!-- Menu Section -->
+              <section class="store-section" id="menu-anchor">
+                <h4 class="section-title">Today's Gourmet Menu</h4>
+                <div class="section-divider"></div>
+                <div id="sim-menu-list" class="store-menu-grid">
+                  <!-- Dynamic Menu Items show here -->
+                  <p class="sim-menu-empty">Add items marked as "Menu" in your Knowledge Base to display them on this website.</p>
+                </div>
+              </section>
+
+              <!-- Hours & Location Section -->
+              <section class="store-section info-section" id="about-anchor">
+                <h4 class="section-title">Contact & Opening Hours</h4>
+                <div class="section-divider"></div>
+                <div class="store-info-grid">
+                  <div class="store-info-card">
+                    <h5>⏰ Hours of Operation</h5>
+                    <p id="sim-info-hours">No hours set.</p>
+                  </div>
+                  <div class="store-info-card">
+                    <h5>📍 Our Location</h5>
+                    <p id="sim-info-location">No location set.</p>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <!-- Customer Chat Widget Drawer on Storefront (Floating trigger) -->
+            <button id="chat-widget-trigger" class="chat-widget-trigger hidden">
+              <span class="chat-icon">💬</span>
+              <span class="badge hidden" id="chat-badge">1</span>
+            </button>
+
+            <!-- Floating Chat Box Drawer -->
+            <div id="chat-widget-box" class="chat-widget-box hidden">
+              <header class="chat-box-header">
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-title">
+                  <h4 id="chat-bot-title">Assistant</h4>
+                  <span>Online</span>
+                </div>
+                <button id="btn-close-chat" class="btn-close-chat">&times;</button>
+              </header>
+              <div id="chat-messages" class="chat-messages">
+                <!-- Chat messages display here -->
+                <div class="msg bot-msg">
+                  <p>Ciao! I am your dining assistant. How can I help you today?</p>
+                  <span class="msg-time">Just now</span>
+                </div>
+              </div>
+              <footer class="chat-input-area">
+                <input type="text" id="chat-input-text" placeholder="Ask about menu, hours, or place an order...">
+                <button id="btn-send-chat" class="btn-send">➔</button>
+              </footer>
+            </div>
+          </div>
+        </section>
+
+        <!-- Page 3: Chat Classroom (Dedicated Sandbox Playground) -->
+        <section id="page-classroom" class="page-view">
+          <div class="classroom-layout">
+            
+            <!-- Classroom Left Panel: AI Information Context -->
+            <aside class="classroom-sidebar">
+              <div class="classroom-sidebar-card">
+                <h3>Syllabus Config (Personality)</h3>
+                <div class="classroom-prompt-box">
+                  <p id="classroom-active-prompt">Loading bot personality prompt...</p>
+                </div>
+              </div>
+              <div class="classroom-sidebar-card flex-1">
+                <h3>Lessons Taught (Knowledge Base)</h3>
+                <div class="classroom-kb-list" id="classroom-active-kb">
+                  <p class="empty-list-text">No custom training data loaded yet.</p>
+                </div>
+              </div>
+            </aside>
+
+            <!-- Classroom Center Panel: Large Chat Workspace -->
+            <main class="classroom-chat-area">
+              <div class="classroom-chat-header">
+                <div class="classroom-header-info">
+                  <h2>Classroom Chat Session</h2>
+                  <p>Interact with the AI student to test its learning. It will use the configuration displayed in the left panel.</p>
+                </div>
+                <button id="btn-reset-classroom-chat" class="btn btn-secondary">Clear Chat Session</button>
+              </div>
+
+              <!-- Message container specifically mapped for the main classroom playground -->
+              <div id="classroom-chat-messages" class="classroom-messages">
+                <div class="classroom-msg bot-msg">
+                  <p>Welcome to the Chat Classroom! I am ready to test my training. Ask me about our menu, hours, or order details.</p>
+                  <span class="msg-time">Just now</span>
+                </div>
+              </div>
+
+              <footer class="classroom-input-area">
+                <input type="text" id="classroom-input-text" placeholder="Type a message to chat with your trained AI bot...">
+                <button id="btn-send-classroom-chat" class="btn-send-classroom">Send Message</button>
+              </footer>
+            </main>
+
+          </div>
+        </section>
+        
+      </main>
+      
+    </div>
+
+    <!-- Modals -->
+    <!-- Modal 1: Register Tenant -->
+    <div id="modal-tenant" class="modal hidden">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h2>Register Restaurant Profile</h2>
+          <button class="btn-close modal-close">&times;</button>
+        </header>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="new-tenant-name">Restaurant Name</label>
+            <input type="text" id="new-tenant-name" placeholder="e.g. Bella Italia, Golden Dragon" required>
+          </div>
+          <div class="form-group">
+            <label for="new-tenant-key">Custom API Key <span class="optional">(Optional)</span></label>
+            <input type="text" id="new-tenant-key" placeholder="e.g. my-custom-key (Leave empty for auto-generated)">
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <button class="btn btn-secondary modal-close">Cancel</button>
+          <button id="btn-submit-tenant" class="btn btn-primary">Create Profile</button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Modal 2: Add/Edit KB Item -->
+    <div id="modal-kb" class="modal hidden">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h2 id="kb-modal-title">Add Knowledge Entry</h2>
+          <button class="btn-close modal-close">&times;</button>
+        </header>
+        <div class="modal-body">
+          <input type="hidden" id="kb-item-id">
+          <div class="form-group">
+            <label for="kb-category">Category</label>
+            <select id="kb-category">
+              <option value="menu">🍳 Menu (Displays on Menu Section)</option>
+              <option value="hours">⏰ Hours (Displays on Info Grid)</option>
+              <option value="locations">📍 Location (Displays on Info Grid)</option>
+              <option value="general">❓ FAQ / General Info</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="kb-title">Title / Name</label>
+            <input type="text" id="kb-title" placeholder="e.g. Pizza Margherita, Opening Hours, Delivery Area" required>
+          </div>
+          <div class="form-group">
+            <label for="kb-content">Content / Description</label>
+            <textarea id="kb-content" placeholder="Detail the information here. For menu items, include price and ingredients." required></textarea>
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <button class="btn btn-secondary modal-close">Cancel</button>
+          <button id="btn-submit-kb" class="btn btn-primary">Save Entry</button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Modal 3: Order Checkout Sandbox -->
+    <div id="modal-checkout" class="modal hidden">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h2>Simulate Online Checkout</h2>
+          <button class="btn-close modal-close">&times;</button>
+        </header>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="order-cust-name">Full Name</label>
+            <input type="text" id="order-cust-name" placeholder="e.g. John Doe" required>
+          </div>
+          <div class="form-group">
+            <label for="order-cust-phone">Phone Number</label>
+            <input type="text" id="order-cust-phone" placeholder="e.g. +1 555-0199" required>
+          </div>
+          <div class="form-group">
+            <label for="order-cust-address">Delivery Address</label>
+            <input type="text" id="order-cust-address" placeholder="e.g. 123 Gourmet Way, Foodville" required>
+          </div>
+          <div class="form-group">
+            <label for="order-cust-box">Order Box (Cart Items)</label>
+            <textarea id="order-cust-box" placeholder="e.g. 2x Pizza Margherita, 1x Tiramisu" required></textarea>
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <button class="btn btn-secondary modal-close">Cancel</button>
+          <button id="btn-submit-order" class="btn btn-primary">Place Order</button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Script Entry -->
+  </body>
+</html>
